@@ -44,10 +44,13 @@ export const Header: React.FC<HeaderProps> = ({
       <div className="max-w-md mx-auto px-4 py-3 flex items-center gap-2">
         <button
           onClick={onLogoTap}
-          className="font-semibold text-lg active:opacity-60"
+          className="font-semibold text-lg active:opacity-60 relative"
           aria-label="Toggle debug"
         >
           {BRAND.name}
+          <span className="absolute -top-1 -right-12 bg-orange-500 text-white text-[8px] px-1 py-0.5 rounded font-bold">
+            EXP
+          </span>
         </button>
 
         {/* 💳 Card */}

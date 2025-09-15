@@ -1,7 +1,7 @@
 {
-  "name": "willow-coffee-order",
-  "version": "1.0.0-beta.1",
-  "description": "Telegram Mini App for Willow Coffee with loyalty system",
+  "name": "willow-coffee-order-experimental",
+  "version": "2.0.0-alpha.1",
+  "description": "EXPERIMENTAL: Willow Coffee Telegram Mini App - Design & Features Testing",
   "type": "module",
   "scripts": {
     "dev": "vite",
