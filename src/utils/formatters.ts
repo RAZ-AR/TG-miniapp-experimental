@@ -42,3 +42,13 @@ export const titleByLang = (item: { title_en?: string; title_sr?: string; title_
         : item.title_ru;
   return pick || item.title_en || item.title_sr || item.title_ru || "Item";
 };
+
+export const compositionByLang = (item: { composition_en?: string; composition_sr?: string; composition_ru?: string }, lang: Lang): string => {
+  const pick =
+    lang === "en"
+      ? item.composition_en
+      : lang === "sr"
+        ? item.composition_sr
+        : item.composition_ru;
+  return pick || item.composition_en || item.composition_sr || item.composition_ru || "";
+};

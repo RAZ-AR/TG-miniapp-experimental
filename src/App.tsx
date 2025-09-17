@@ -21,7 +21,6 @@ import {
   CartSheet,
   AdsCarousel,
   BottomBar,
-  OrderConfirmationModal,
 } from "./components";
 
 import { TestRunner } from "./components/DevTools";
@@ -60,8 +59,6 @@ export default function App() {
   const [activeCategory, setActiveCategory] = useState<string>("All");
   const [showCart, setShowCart] = useState<boolean>(false);
   const [debugTapCount, setDebugTapCount] = useState<number>(0);
-  const [showOrderConfirmation, setShowOrderConfirmation] = useState<boolean>(false);
-  const [starsEarned, setStarsEarned] = useState<number>(0);
 
   // Debug visibility
   const [debugVisible, setDebugVisible] = useState<boolean>(() => {
@@ -143,14 +140,10 @@ export default function App() {
       }
 
       cart.clear();
-      setStarsEarned(resp?.stars_earned || 0);
-      setShowOrderConfirmation(true);
     } catch (error) {
       console.error("Order error:", error);
       // Still clear cart and show success for UX
       cart.clear();
-      setStarsEarned(0);
-      setShowOrderConfirmation(true);
     }
   };
 
@@ -268,12 +261,6 @@ export default function App() {
 
       {debugVisible && <TestRunner />}
 
-      <OrderConfirmationModal
-        isOpen={showOrderConfirmation}
-        lang={lang}
-        onClose={() => setShowOrderConfirmation(false)}
-        starsEarned={starsEarned}
-      />
     </div>
   );
 }

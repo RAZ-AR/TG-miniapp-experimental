@@ -1,5 +1,5 @@
-import React from 'react';
-import { titleByLang, currency, selectLabel } from '../../utils';
+import React, { useState } from 'react';
+import { titleByLang, currency, selectLabel, compositionByLang } from '../../utils';
 import type { MenuItem as MenuItemType, Lang } from '../../types';
 
 interface MenuItemProps {
@@ -9,29 +9,44 @@ interface MenuItemProps {
 }
 
 export const MenuItem: React.FC<MenuItemProps> = ({ item, lang, onAdd }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const composition = compositionByLang(item, lang);
+  // Updated design: centered layout with price in button
+
   return (
-    <div className="rounded-2xl border border-gray-100 shadow-sm overflow-hidden text-center p-3">
-      <img
-        src={item.image || ""}
-        alt={titleByLang(item, lang)}
-        className="w-full h-36 object-cover bg-gray-100 mb-2"
-      />
-      <div className="text-sm font-medium leading-tight truncate">
-        {titleByLang(item, lang)}
-      </div>
-      {item.volume && (
-        <div className="text-xs text-gray-500 mt-0.5">
-          {item.volume}
+    <div className="rounded-lg border border-gray-200 p-4 bg-white hover:shadow-md transition-shadow text-center">
+      <div
+        className="cursor-pointer"
+        onClick={() => composition && setIsExpanded(!isExpanded)}
+      >
+        <div className="mb-3">
+          <h3 className="text-lg font-bold leading-tight text-gray-900 mb-2">
+            {titleByLang(item, lang)}
+          </h3>
+          {item.volume && (
+            <div className="text-sm text-gray-600 font-medium">
+              {item.volume}
+            </div>
+          )}
+          {composition && (
+            <div className="text-xs text-gray-400 mt-2">
+              {isExpanded ? '▼' : '▶'}
+            </div>
+          )}
         </div>
-      )}
-      <div className="text-base font-semibold mt-1">
-        {currency(item.price)}
+
+        {isExpanded && composition && (
+          <div className="mt-3 text-xs text-gray-600 leading-relaxed border-t border-gray-100 pt-3 text-left">
+            {composition}
+          </div>
+        )}
       </div>
+
       <button
         onClick={() => onAdd(item.id)}
-        className="mt-3 w-full py-2 rounded-xl bg-black text-white text-sm font-medium"
+        className="mt-3 w-full py-2 rounded-lg bg-white border-2 border-black text-black text-sm font-medium hover:bg-black hover:text-white active:bg-black active:text-white transition-colors"
       >
-        {selectLabel(lang)}
+        {currency(item.price)}
       </button>
     </div>
   );
